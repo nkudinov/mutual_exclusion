@@ -1,10 +1,11 @@
+import algorithms.Dekker;
 import algorithms.LamportBakeryAlgorithm;
 
 import java.util.concurrent.Callable;
 
 public class Algorithms {
     public static void main(String[] args) {
-        LamportBakeryAlgorithm algo = new LamportBakeryAlgorithm(2);
+        Dekker algo = new Dekker();
         Callable<Integer> call = new Callable<Integer>() {
             @Override
             public Integer call() throws Exception {
@@ -20,6 +21,7 @@ public class Algorithms {
                 for (int i = 0; i < 10; i++) {
                     try {
                         algo.lock(0, call);
+                        algo.unlock(0);
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -32,6 +34,7 @@ public class Algorithms {
                 for (int i = 0; i < 10; i++) {
                     try {
                         algo.lock(1, call);
+                        algo.unlock(1);
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }

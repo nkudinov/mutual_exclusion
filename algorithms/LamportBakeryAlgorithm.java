@@ -22,7 +22,7 @@ public class LamportBakeryAlgorithm {
         return ans;
     }
 
-    public <T> T lock(int num, Callable<T> call) throws Exception {
+    public <T> void lock(int num, Callable<T> call) throws Exception {
         entering.set(num, 1);
         int myTicket = getMaxTicket() + 1;
         tickets.set(num, myTicket);
@@ -38,7 +38,7 @@ public class LamportBakeryAlgorithm {
                 }
             }
         }
-        return call.call();
+        call.call();
     }
 
     public void unlock(int num) {
